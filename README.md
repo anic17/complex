@@ -26,6 +26,10 @@ C library to work with complex numbers. Just wanted to implement my own simple c
  - `imag`: Get the imaginary part of a complex number, returns 0 if no imaginary part exists.
  - `real`: Get the real part of a complex number, returns 0 if no real part exists.
 
-
+## Usage
+To use the library, simply include it with the following line
+```c
+#include "complex.h"
+```
 
 **Copyright (c) 2022 anic17 Software**
