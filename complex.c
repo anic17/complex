@@ -121,17 +121,3 @@ complex_t cdivide(complex_t num1, complex_t num2)
     result.imag = (num1.imag * num2.real - num1.real * num2.imag) / denominator;
     return result;
 }
-
-/* int main()
-{
-    complex_t my_complex = {4.0, 3.0};
-    printf("%s\n", ctoa(my_complex));
-    printf("Sqrt of %s is %s\n", ctoa(my_complex), ctoa(csqrt(my_complex)));
-    printf("(2+3i)^2 = %s\n", ctoa(cpower(my_complex, 2)));
-    printf("Angle: %llf\n\n", degangle(my_complex));
-    complex_t a = {7.0, -3.0}, b = {0.0, -5.01};
-    printf("Sum: %s\nDiff: %s\n", ctoa(cadd(a, b)), ctoa(cdiff(a, b)));
-    printf("Multiply: %s\nDivision: %s", ctoa(cmultiply(a, b)), ctoa(cdivide(a, b)));
-    
-    return 0;
-} */
