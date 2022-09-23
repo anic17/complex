@@ -32,4 +32,4 @@ To use the library, simply include it with the following line
 #include "complex.h"
 ```
 
-**Copyright (c) 2022 anic17 Software**
+**Copyright &copy; 2022 anic17 Software**
