@@ -3,7 +3,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <limits.h>
 
 typedef struct complex_t
 {
