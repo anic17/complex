@@ -2,8 +2,17 @@
 
 #include <math.h>
 #include <stdlib.h>
-#include <limits.h>
 #include <stdio.h>
+#include <string.h>
+
+#ifndef M_PI
+#define M_PI 3.141592653589793
+#endif
+#ifndef M_E
+#define M_E 2.718281828459045
+#endif
+
+#define SHORT_CTOA 1
 
 long double real(complex_t num)
 {
@@ -17,22 +26,44 @@ long double imag(complex_t num)
 
 char *ctoa(complex_t num)
 {
-    char *buf = (char *)malloc(sizeof(char) * (CHAR_BIT * sizeof(long double) + 1));
+    /* This function is very badly written. Contributions to improve it are highly appreciated */
+    size_t allocsize = sizeof(char) * 2 * (8 * sizeof(long double) + 1);
+    size_t len = 0;
+    char *buf = calloc(allocsize, 1);
     char sign = '+';
-    if(fabs(num.imag) != num.imag)
+    if (fabs(num.imag) != num.imag)
     {
         sign = '-';
-    } 
-    snprintf(buf, sizeof(char) * (CHAR_BIT * sizeof(long double) + 3), "%.8Lg%c%.8Lgi", num.real, sign, fabs(num.imag)); // +3 to account for the ',' and 'i'
+    }
+    if (buf[0] == '\0')
+    {
+        len = 0;
+    }
+    if (SHORT_CTOA)
+    {
+        if (num.real != 0)
+        {
+            snprintf(buf, allocsize, "%.8Lg", num.real);
+            len = strlen(buf);
+        }
+        if (num.imag != 0)
+        {
+            if (num.real != 0 || sign == '-')
+            {
+                snprintf(buf + len, allocsize, "%c%.8Lgi", sign, fabs(num.imag));
+            }
+            else
+            {
+                snprintf(buf + len, allocsize, "%.8Lgi", num.imag);
+            }
+            len = strlen(buf);
+        }
+    }
+    else
+    {
+        snprintf(buf, allocsize, "%.8Lg%c%.8Lgi", num.real, sign, fabs(num.imag)); // +3 to account for the ',' and 'i'
+    }
     return buf;
-}
-
-complex_t cpower(complex_t num, long double power)
-{
-    complex_t result;
-    result.real = pow(num.real, power);
-    result.imag = pow(num.imag, power);
-    return result;
 }
 
 long double cabs(complex_t num)
@@ -46,41 +77,22 @@ complex_t cvalue(long double real, long double imag) // Change values of a compl
     return result;
 }
 
-complex_t csqrt(complex_t num) // Calculate sqrt of a complex number, with the real and the imaginary results.
+long double carg(complex_t num)
 {
-    complex_t result;
-
-    long double a = num.real * num.real;
-    long double b = num.imag * num.imag;
-
-    long double rep = cos(0.5 * atan2(num.imag, num.real));
-    long double imp = sin(0.5 * atan2(num.imag, num.real));
-
-    result.real = pow(a + b, 0.25) * rep;
-    result.imag = pow(a + b, 0.25) * imp;
-
-    return result;
-}
-
-long double radangle(complex_t num)
-{
-
-    long double angle = atan2(num.imag, num.real);
-    return angle;
-}
-
-long double degangle(complex_t num)
-{
-    long double angle = radangle(num) * 180 / M_PI;
-    return angle;
+    return atan2(num.imag, num.real); // arg(z) = atan(y/x)
 }
 
 complex_t conj(complex_t num)
 {
-    complex_t result;
-    result.real = num.real;
-    result.imag = -num.imag;
+    complex_t result = {num.real, -num.imag};
     return result;
+}
+
+complex_t clog(complex_t num)
+{
+    long double modulus = cabs(num), arg = carg(num);
+    complex_t c_log = {log(modulus), arg};
+    return c_log;
 }
 
 long double degtorad(long double deg)
@@ -104,7 +116,10 @@ complex_t cadd(complex_t num1, complex_t num2)
 
 complex_t cdiff(complex_t num1, complex_t num2)
 {
-    return cadd(num1, conj(num2)); // num1 - num2
+    complex_t result;
+    result.real = num1.real - num2.real;
+    result.imag = num1.imag - num2.imag;
+    return result;
 }
 
 complex_t cmultiply(complex_t num1, complex_t num2)
@@ -123,3 +138,122 @@ complex_t cdivide(complex_t num1, complex_t num2)
     result.imag = (num1.imag * num2.real - num1.real * num2.imag) / denominator;
     return result;
 }
+
+complex_t cexp(complex_t num)
+{
+    complex_t result;
+    complex_t tmp = cvalue(num.real, num.imag);
+    result.real = pow(M_E, num.real) * cos(num.imag);
+    result.imag = pow(M_E, num.real) * sin(num.imag);
+    return result;
+}
+
+complex_t ccosh(complex_t num)
+{
+    complex_t exp1 = cexp(num);
+    complex_t exp2 = cexp(cvalue(-num.real, -num.imag));
+    complex_t result = cdivide(cadd(exp1, exp2), cvalue(2, 0));
+    return result;
+}
+
+complex_t csinh(complex_t num)
+{
+    complex_t exp1 = cexp(num);
+    complex_t exp2 = cexp(cvalue(-num.real, -num.imag));
+    complex_t result = cdivide(cdiff(exp1, exp2), cvalue(2, 0));
+    return result;
+}
+
+complex_t ccos(complex_t num)
+{
+    complex_t result;
+    result.real = cos(num.real) * cosh(num.imag);
+    result.imag = sin(num.real) * sinh(num.imag);
+    return result;
+}
+
+complex_t csin(complex_t num)
+{
+    complex_t result;
+    result.real = sin(num.real) * cosh(num.imag);
+    result.imag = cos(num.real) * sinh(num.imag);
+
+    return result;
+}
+
+complex_t ctan(complex_t num)
+{
+    complex_t result = cdivide(csin(num), ccos(num));
+    return result;
+}
+
+complex_t ctanh(complex_t num)
+{
+    complex_t result = cdivide(csinh(num), ccosh(num));
+    return result;
+}
+
+complex_t csec(complex_t num) // Inverse of cosine
+{
+    complex_t result = cdivide(cvalue(1, 0), ccos(num));
+    return result;
+}
+
+complex_t ccsc(complex_t num) // Inverse of sine
+{
+    complex_t result = cdivide(cvalue(1, 0), csin(num));
+    return result;
+}
+
+complex_t ccot(complex_t num)
+{
+    complex_t result = cdivide(cvalue(1, 0), ctan(num));
+    return result;
+}
+
+complex_t csech(complex_t num)
+{
+    complex_t result = cdivide(cvalue(1, 0), ccosh(num));
+    return result;
+}
+
+complex_t ccsch(complex_t num)
+{
+    complex_t result = cdivide(cvalue(1, 0), csinh(num));
+    return result;
+}
+
+complex_t ccoth(complex_t num)
+{
+    complex_t result = cdivide(cvalue(1, 0), ctanh(num));
+    return result;
+}
+
+complex_t cpower(complex_t num, complex_t power)
+{
+    complex_t result;
+    complex_t exponent = cmultiply(power, clog(num));
+    result = cexp(exponent);
+
+    return result;
+}
+
+complex_t clogbase(complex_t base, complex_t num)
+{
+    complex_t result = cdivide(clog(num), clog(base));
+    return result;
+}
+
+complex_t clog10(complex_t num)
+{
+    return clogbase(cvalue(10, 0), num);
+}
+
+complex_t csqrt(complex_t num)
+{
+    return cpower(num, cvalue(0.5, 0)); // Convert square root to fraction exponent (1/2)
+}
+
+#ifndef j
+#define j cvalue
+#endif
