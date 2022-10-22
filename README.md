@@ -2,6 +2,8 @@
 
 C library to work with complex numbers. Just wanted to implement my own simple complex number library.
 
+See the [website](https://anic17.github.io/complex) for more information.
+
 ## List of all functions:
 
 ### Conversion functions
