@@ -10,19 +10,18 @@ All angles are calculated in radians, however you can still convert the differen
  - `long double radtodeg(long double)`: Convert radians to degrees.  
 
 ### Conversion functions
- - `ctoa`: Convert complex expression to string, in format `a+bi` or `a-bi`
+ - `char* ctoa(complex_t)`: Convert complex expression to string, in format `a+bi` or `a-bi`
 
 ### Basic complex operations
- - `long double cabs(complex_t)`: Absolute value of a complex number.  
- - `complex_t cadd(complex_t, complex_t)`: Add 2 complex numbers
- - `complex_t cdiff(complex_t, complex_t)`: Substract 2 complex numbers
- - `complex_t cmultiply(complex_t, complex_t)`: Multiply 2 complex numbers
- - `complex_t cdivide(complex_t, complex_t)`: Divide 2 complex numbers
- - `complex_t conj(complex_t)`: Conjugate of a number
+
+ - `complex_t cadd(complex_t, complex_t)`: Add 2 complex numbers.
+ - `complex_t cdiff(complex_t, complex_t)`: Substract 2 complex numbers.
+ - `complex_t cmultiply(complex_t, complex_t)`: Multiply 2 complex numbers.
+ - `complex_t cdivide(complex_t, complex_t)`: Divide 2 complex numbers.
+ - `complex_t conj(complex_t)`: Conjugate of a complex number.
  - `long double carg(complex_t)`: Complex argument.
-
+ - `long double cabs(complex_t)`: Absolute value of a complex number.  
  - `complex_t cvalue(long double, long double)`: Assign new values to a complex number, and return that value.  
-
  - `long double imag(complex_t)`: Get the imaginary part of a complex number.  
  - `long double real(complex_t)`: Get the real part of a complex number.
 
@@ -31,7 +30,6 @@ All angles are calculated in radians, however you can still convert the differen
  - `complex_t cexp(complex_t num)`: Exponential function (`e^z`).
  - `complex_t cpower(complex_t, complex_t)`: Raise a complex number to a power.
  - `complex_t csqrt(complex_t)`: Square root of a complex number.
-
  - `complex_t clog(complex_t)`: Natural logarithm (base e).
  - `complex_t clogbase(complex_t, complex_t)` Logarithm with any base.
  - `complex_t clog10(complex_t)`: Common logarithm (base 10).
