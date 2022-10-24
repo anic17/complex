@@ -27,7 +27,7 @@ All angles are calculated in radians, however you can still convert the differen
 
 ### Powers and logarithms
 
- - `complex_t cexp(complex_t num)`: Exponential function (`e^z`).
+ - `complex_t cexp(complex_t num)`: Exponential function ($e^{x}$).
  - `complex_t cpower(complex_t, complex_t)`: Raise a complex number to a power.
  - `complex_t csqrt(complex_t)`: Square root of a complex number.
  - `complex_t clog(complex_t)`: Natural logarithm (base e).
@@ -69,13 +69,13 @@ printf("cosh(%s)=%s\n", ctoa(num2), ctoa(ccosh(num2))); // Prints -6.580663-7.58
 ```
 
 ## Usage
-To use the library, simply include it with the following line
+To use the library, simply include it with the following line:
 ```c
 #include "complex.h"
 ```
 
 ## Known issues
 
-Due to C language limitations, precision loss may happen when using some functions.
+Due to long double-precision floats limitations, precision loss may happen.
 
 **Copyright &copy; 2022 anic17 Software**
