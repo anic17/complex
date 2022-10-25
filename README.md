@@ -10,7 +10,7 @@ All angles are calculated in radians, however you can still convert the differen
  - `long double radtodeg(long double)`: Convert radians to degrees.  
 
 ### Conversion functions
- - `char* ctoa(complex_t)`: Convert complex expression to string, in format `a+bi` or `a-bi`
+ - `char* ctoa(complex_t)`: Convert complex expression to string, in format $a+bi$ or $a-bi$
 
 ### Basic complex operations
 
@@ -73,6 +73,18 @@ To use the library, simply include it with the following line:
 ```c
 #include "complex.h"
 ```
+
+Furthermore, `ctoa()` has 2 different output formats:
+ - Long, which shows the full complex number, including zero-valued parts.
+ - Short, which trims all the unnecessary data: if a part is zero, it won't be shown.
+ 
+ This behavior can be modified by changing the value of [`SHORT_CTOA`](https://github.com/anic17/complex/blob/main/complex.c#L15) (defined at line 15, [`complex.c`](https://github.com/anic17/complex/blob/main/complex.c#L15) to either 0 (long output) or 1 (short output).
+ Example outputs of both with `cpower(cvalue(0, 1), cvalue(0, 1)))` ( $i^{i}$ )
+ #### Long:
+ `0.20787958+0i`
+ 
+ #### Short:
+ `0.20787958`
 
 ## Known issues
 
