@@ -31,14 +31,11 @@ char *ctoa(complex_t num)
     size_t len = 0;
     char *buf = calloc(allocsize, 1);
     char sign = '+';
-    if (fabs(num.imag) != num.imag)
+    if (num.imag < 0.0L)
     {
         sign = '-';
     }
-    if (buf[0] == '\0')
-    {
-        len = 0;
-    }
+
     if (SHORT_CTOA)
     {
         if (num.real != 0)
