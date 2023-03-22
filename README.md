@@ -90,4 +90,4 @@ Furthermore, `ctoa()` has 2 different output formats:
 
 Due to long double-precision floats limitations, precision loss may happen.
 
-**Copyright &copy; 2022 anic17 Software**
+**Copyright &copy; 2023 anic17 Software**
