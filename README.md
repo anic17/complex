@@ -79,12 +79,15 @@ Furthermore, `ctoa()` has 2 different output formats:
  - Short, which trims all the unnecessary data: if a part is zero, it won't be shown.
  
  This behavior can be modified by changing the value of [`SHORT_CTOA`](https://github.com/anic17/complex/blob/main/complex.c#L15) (defined at line 15, [`complex.c`](https://github.com/anic17/complex/blob/main/complex.c#L15) to either 0 (long output) or 1 (short output).
- Example outputs of both with `cpower(cvalue(0, 1), cvalue(0, 1)))` ( $i^{i}$ )
+ Example outputs of both with `cpower(cvalue(0, 1), cvalue(0, 1))` ( $i^{i}$ )
  #### Long:
  `0.20787958+0i`
  
  #### Short:
  `0.20787958`
+
+For simplicity, `cvalue()` function is the same as `j()` function, in order to ease the coding process.
+`cpower(cvalue(0, 1), cvalue(0, 1))` --> ``cpower(j(0, 1), j(0, 1))``
 
 ## Known issues
 
