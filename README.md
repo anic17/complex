@@ -1,5 +1,8 @@
 # C complex library
 
+> **Note**
+See the [website](https://anic17.github.io/complex) for more information
+
 Powerful C library to easily work with complex numbers, with a variety of complex implementations of some commonly used functions.  
 All angles are calculated in radians, however you can still convert the different units with some built-in functions.
 
