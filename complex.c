@@ -35,7 +35,14 @@ char *ctoa(complex_t num)
     {
         sign = '-';
     }
-
+    if(fabs(num.real) < 1e-15)
+    {
+        num.real = 0;
+    }
+    if(fabs(num.imag) < 1e-15)
+    {
+        num.imag = 0;
+    }
     if (SHORT_CTOA)
     {
         if (num.real != 0)
@@ -54,6 +61,10 @@ char *ctoa(complex_t num)
                 snprintf(buf + len, allocsize, "%.8Lgi", num.imag);
             }
             len = strlen(buf);
+        }
+        if(buf[0] == '\0')
+        {
+            buf[0] = '0';
         }
     }
     else
