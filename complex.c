@@ -176,7 +176,7 @@ complex_t ccos(complex_t num)
 {
     complex_t result;
     result.real = cos(num.real) * cosh(num.imag);
-    result.imag = sin(num.real) * sinh(num.imag);
+    result.imag = -sin(num.real) * sinh(num.imag);
     return result;
 }
 
