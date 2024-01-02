@@ -1,10 +1,10 @@
 # C complex library
 
-> **Note**
+> [!NOTE]
 See the [website](https://anic17.github.io/complex) for more information
 
 Powerful C library to easily work with complex numbers, with a variety of complex implementations of some commonly used functions.  
-All angles are calculated in radians, however you can still convert the different units with some built-in functions.
+All angles are calculated in radians, however you can convert the different units with some built-in functions.
 
 ## List of all functions
 
@@ -96,4 +96,4 @@ For simplicity, `cvalue()` function is the same as `j()` function, in order to e
 
 Due to long double-precision floats limitations, precision loss may happen.
 
-**Copyright &copy; 2023 anic17 Software**
+**Copyright &copy; 2024 anic17 Software**
