@@ -96,4 +96,4 @@ For simplicity, `cvalue()` function is the same as `j()` function, in order to e
 
 Due to long double-precision floats limitations, precision loss may happen.
 
-**Copyright &copy; 2024 anic17 Software**
+**Copyright &copy; 2025 anic17 Software**
